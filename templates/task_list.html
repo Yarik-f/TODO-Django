@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% block title %}
+    <title>Список задач</title>
+{% endblock %}
+{% block content %}
+    <ul class="tasks-list">
+        {% for task in tasks %}
+            <li class="tasks-list--item">
+                <div class="item-text">
+                    <h2>{{ task.title }}</h2>
+                    <p>{{ task.description }}</p>
+                </div>
+                <div class="item-btn">
+                    {% if task.status %}
+                        <a class="item-status active" href="{% url 'task_toggle' task.pk %}">Выполненно</a>
+                    {% else %}
+                        <a class="item-status" href="{% url 'task_toggle' task.pk %}">Не выполненно</a>
+                    {% endif %}
+                    <a href="{% url 'task_update' task.pk %}">Редактировать</a>
+                    <a href="{% url 'task_delete' task.pk %}">Удалить</a>
+
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusLinks = document.querySelectorAll('.item-status');
+
+            statusLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    link.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

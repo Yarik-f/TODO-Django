@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>Task</title>{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<div class="tasks">
+    <div class="tasks-btn">
+        <a href="{% url 'task_list' %}">Список задач</a>
+        <a href="{% url 'task_create' %}">Добавить задачу</a>
+    </div>
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>
