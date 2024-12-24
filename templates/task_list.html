@@ -10,6 +10,10 @@
                     <h2>{{ task.title }}</h2>
                     <p>{{ task.description }}</p>
                 </div>
+            <div class="item-time">
+                <p>Дата: {{ task.date_completed|date:'Y-m-d' }}</p>
+                <p>Время: {{ task.date_completed|date:'H:i' }}</p>
+            </div>
                 <div class="item-btn">
                     {% if task.status %}
                         <a class="item-status active" href="{% url 'task_toggle' task.pk %}">Выполненно</a>

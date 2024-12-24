@@ -81,11 +81,18 @@ button:hover {
 }
 
 .item-text {
-    width: 70%;
+    width: 50%;
 }
 
 .item-text p {
     margin-left: 50px;
+}
+.item-time{
+    display: flex;
+    flex-direction: column;
+}
+.item-time p {
+    margin-top: 2px;
 }
 
 .item-btn {
