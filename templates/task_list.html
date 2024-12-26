@@ -3,30 +3,46 @@
     <title>Список задач</title>
 {% endblock %}
 {% block content %}
+    <form method="get" action="{% url 'task_list' %}">
+    {% if user.is_authenticated %}
+                <select name="filter" onchange="this.form.submit()">
+                    <option value="public" {% if request.GET.filter == "public" %}selected{% endif %}>Общие задачи</option>
+                    <option value="my" {% if request.GET.filter == "my" %}selected{% endif %}>Мои задачи</option>
+                </select>
+            </form>
+    {% else %}
+    
+    {% endif %}
     <ul class="tasks-list">
-        {% for task in tasks %}
-            <li class="tasks-list--item">
-                <div class="item-text">
-                    <h2>{{ task.title }}</h2>
-                    <p>{{ task.description }}</p>
-                </div>
-            <div class="item-time">
-                <p>Дата: {{ task.date_completed|date:'Y-m-d' }}</p>
-                <p>Время: {{ task.date_completed|date:'H:i' }}</p>
-            </div>
-                <div class="item-btn">
-                    {% if task.status %}
-                        <a class="item-status active" href="{% url 'task_toggle' task.pk %}">Выполненно</a>
-                    {% else %}
-                        <a class="item-status" href="{% url 'task_toggle' task.pk %}">Не выполненно</a>
-                    {% endif %}
-                    <a href="{% url 'task_update' task.pk %}">Редактировать</a>
-                    <a href="{% url 'task_delete' task.pk %}">Удалить</a>
+        {% if not tasks %}
+            <h2>Список задач пуст</h2>
+        {% else %}
 
-                </div>
-            </li>
-        {% endfor %}
+            {% for task in tasks %}
+                <li class="tasks-list--item">
+                    <div class="item-text">
+                        <h2>{{ task.title }}</h2>
+                        <p>{{ task.description }}</p>
+                    </div>
+                    <div class="item-time">
+                        <p>Дата: {{ task.date_completed|date:'Y-m-d' }}</p>
+                        <p>Время: {{ task.date_completed|date:'H:i' }}</p>
+                    </div>
+                    <div class="item-btn">
+                        {% if task.status %}
+                            <a class="item-status active" href="{% url 'task_toggle' task.pk %}">Выполненно</a>
+                        {% else %}
+                            <a class="item-status" href="{% url 'task_toggle' task.pk %}">Не выполненно</a>
+                        {% endif %}
+                        <a href="{% url 'task_update' task.pk %}">Редактировать</a>
+                        <a href="{% url 'task_delete' task.pk %}">Удалить</a>
+
+                    </div>
+                </li>
+            {% endfor %}
+        {% endif %}
     </ul>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const statusLinks = document.querySelectorAll('.item-status');
@@ -37,6 +53,7 @@
                 });
             });
         });
+
     </script>
 
 {% endblock %}

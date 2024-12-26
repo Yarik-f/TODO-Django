@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'TODO_Django.middleware.AdminNotificationMiddleware',
 ]
 
 ROOT_URLCONF = 'TODO_Django.urls'
@@ -106,13 +107,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Minsk'
+
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -123,6 +125,17 @@ STATICFILES_DIRS = [BASE_DIR/'static']
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR/'media'
+
+LOGIN_REDIRECT_URL = '/'  # Главная страница
+LOGOUT_REDIRECT_URL = 'login/'  # Страница входа после выхода
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'fadigell@gmail.com'  # Ваш email
+EMAIL_HOST_PASSWORD = 'q v f g v f r t p w l u r j o g'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

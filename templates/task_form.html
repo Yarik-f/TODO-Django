@@ -6,6 +6,10 @@
     <div class="form-container">
         <form method="POST">
             {% csrf_token %}
+            <select name="user" id="user">
+                <option value="public" {% if not task.user %} selected {% endif %}>Общие задачи</option>
+                <option value="my" {% if task.user == request.user %} selected {% endif %}>Мои задачи</option>
+            </select>
             <div class="form-group">
                 <label for="title">Название:</label>
                 <input type="text" name="title" id="title" value="{{ task.title|default:'' }}" required>
