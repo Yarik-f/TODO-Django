@@ -11,3 +11,10 @@ class Task(models.Model):
 
     def __str__(self):
         return f'{self.title} | {self.status}'
+
+class Notification(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.task.title}'

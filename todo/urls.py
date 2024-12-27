@@ -18,4 +18,5 @@ urlpatterns = [
     path('account/register/', views.register_view, name='register'),
     path('account/login/', auth_views.LoginView.as_view(template_name='profile/login.html'), name='login'),
     path('account/logout/', auth_views.LogoutView.as_view(next_page='task_list'), name='logout'),
+    # path('check-notifications/', views.check_notifications, name='check_notifications'),
 ]

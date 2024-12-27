@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 
@@ -106,3 +107,14 @@ def toggle_task(request, pk):
 class TaskViewSet(ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializers
+
+
+# def check_notifications(request):
+#     new_notifications = Notification.objects.filter(read=False)
+#     if new_notifications.exists():
+#         new_notifications.update(read=True)
+#         return JsonResponse({
+#             "new_notifications": True,
+#             "message": "Есть новые уведомления!"
+#         })
+#     return JsonResponse({"new_notifications": False})
